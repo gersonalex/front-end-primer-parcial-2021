@@ -1,1 +1,50 @@
 <p>ficha-clinica-list works!</p>
+
+<!-- <mat-form-field appearance="fill">
+  <mat-label>Fecha desde</mat-label>
+  <input matInput [matDatepicker]="picker" />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Fecha hasta</mat-label>
+  <input matInput [matDatepicker]="picker" />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field> -->
+
+<!-- <mat-form-field appearance="fill">
+  <mat-label>Empleado</mat-label>
+  <input matInput />
+</mat-form-field>
+<a href="">Buscar</a>
+<mat-form-field appearance="fill">
+  <mat-label>Cliente</mat-label>
+  <input matInput />
+</mat-form-field>
+<a href="">Buscar</a>
+-->
+<mat-form-field appearance="fill">
+  <mat-label>Categoria</mat-label>
+  <mat-select>
+    <mat-option
+      *ngFor="let categoria of categorias"
+      [value]="categoria.idCategoria"
+    >
+      {{ categoria.descripcion }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Subcategoria</mat-label>
+  <mat-select>
+    <mat-option
+      *ngFor="let categoria of categorias"
+      [value]="categoria.idCategoria"
+    >
+      {{ categoria.descripcion }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
