@@ -1,0 +1,58 @@
+<p>ficha-clinica-list works!</p>
+
+<mat-form-field appearance="fill">
+  <mat-label>Fecha desde</mat-label>
+  <input
+    matInput
+    [matDatepicker]="fechaDesde"
+    (dateChange)="fechaDesdeChange($event)"
+  />
+  <mat-datepicker-toggle matSuffix [for]="fechaDesde"></mat-datepicker-toggle>
+  <mat-datepicker #fechaDesde></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Fecha hasta</mat-label>
+  <input
+    matInput
+    [matDatepicker]="fechaHasta"
+    (dateChange)="fechaHastaChange($event)"
+  />
+  <mat-datepicker-toggle matSuffix [for]="fechaHasta"></mat-datepicker-toggle>
+  <mat-datepicker #fechaHasta></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Empleado</mat-label>
+  <input matInput />
+</mat-form-field>
+<a href="">Buscar</a>
+<mat-form-field appearance="fill">
+  <mat-label>Cliente</mat-label>
+  <input matInput />
+</mat-form-field>
+<a href="">Buscar</a>
+
+<mat-form-field appearance="fill">
+  <mat-label>Categoria</mat-label>
+  <mat-select
+    [value]="categoria"
+    (selectionChange)="categoriaSeleccionar($event.value)"
+  >
+    <mat-option *ngFor="let categoria of categorias" [value]="categoria">
+      {{ categoria.descripcion }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Subcategoria</mat-label>
+  <mat-select [(ngModel)]="subcategoria">
+    <mat-option
+      *ngFor="let subcategoria of subcategorias"
+      [value]="subcategoria"
+    >
+      {{ subcategoria.descripcion }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

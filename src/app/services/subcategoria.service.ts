@@ -1,9 +1,27 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { listadatos } from '../models/datos';
+import { Subcategoria } from '../models/subcategoria';
+
+import { Categoria } from '../models/categoria';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SubcategoriaService {
+  private endpoint =
+    'http://181.123.243.5:8080/stock-pwfe/tipoProducto?ejemplo=';
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
+
+  getSubCategorias(categoria: Categoria): Observable<listadatos<Subcategoria>> {
+    let postString =
+      '{"idCategoria":{"idCategoria": ' + categoria.idCategoria + '}}';
+    return this.http.get<listadatos<Subcategoria>>(
+      this.endpoint + encodeURI(postString)
+    );
+  }
+
+  //FALTA AGREGAR SUBCATEGORIA
 }

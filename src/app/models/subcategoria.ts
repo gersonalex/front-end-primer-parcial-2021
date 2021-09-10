@@ -1,5 +1,9 @@
+import { Injectable } from '@angular/core';
+import { Categoria } from './categoria';
+
+@Injectable()
 export class Subcategoria {
   idTipoProducto!: number;
   descripcion!: string;
-  idCategoria!: number;
+  idCategoria!: Categoria;
 }
