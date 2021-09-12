@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
 import { CategoriaService } from './services/categoria.service';
 import { SubcategoriaService } from './services/subcategoria.service';
@@ -27,6 +28,7 @@ import { SubcategoriaService } from './services/subcategoria.service';
     MatInputModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatTableModule,
   ],
   providers: [CategoriaService, SubcategoriaService],
   bootstrap: [AppComponent],

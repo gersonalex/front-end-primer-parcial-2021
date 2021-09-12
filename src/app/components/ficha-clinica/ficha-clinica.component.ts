@@ -6,6 +6,8 @@ import { Subcategoria } from 'src/app/models/subcategoria';
 import { Persona } from 'src/app/models/persona';
 import { PersonaService } from 'src/app/services/persona.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import { FichaClinicaService } from 'src/app/services/ficha-clinica.service';
+import { FichaClinica } from 'src/app/models/fichaClinica';
 
 @Component({
   selector: 'app-ficha-clinica',
@@ -16,6 +18,17 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 export class FichaClinicaComponent implements OnInit {
   categorias: Categoria[] = [];
   subcategorias: Subcategoria[] = [];
+  fichasClinicas: FichaClinica[] = [];
+
+  //Para la tabla
+  displayedColumns: string[] = [
+    'fecha',
+    'profesional',
+    'cliente',
+    'categoria',
+    'subcategoria',
+    'acciones',
+  ];
 
   // @Input() categoria: Categoria = new Categoria();
   categoria: Categoria = new Categoria();
@@ -27,13 +40,20 @@ export class FichaClinicaComponent implements OnInit {
   constructor(
     private categoriaService: CategoriaService,
     private subCategoriaService: SubcategoriaService,
-    private personaService: PersonaService
+    private personaService: PersonaService,
+    private fichaClinicaService: FichaClinicaService
   ) {}
 
   ngOnInit(): void {
     this.categoriaService.getCategorias().subscribe(
       (data) => (this.categorias = data.lista),
       (error) => console.log('no se pudieron conseguir las categorias')
+    );
+
+    this.fichaClinicaService.getFichasClinicas().subscribe(
+      // (data) => (this.categorias = data.lista),
+      (data) => (this.fichasClinicas = data.lista),
+      (error) => console.log('no se pudieron conseguir las fichas clinicas')
     );
   }
 
@@ -76,5 +96,7 @@ export class FichaClinicaComponent implements OnInit {
       (data) => console.log(data.lista),
       (error) => console.log('no se pudo conseguir la persona')
     );
+
+    console.log(this.fichasClinicas);
   }
 }

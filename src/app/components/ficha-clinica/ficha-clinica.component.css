@@ -1,3 +1,17 @@
 table {
   width: 100%;
 }
+
+#buscar {
+  float: right;
+  margin-right: 10%;
+  margin-bottom: 3%;
+}
+
+#buscar button {
+  margin-left: 30px;
+}
+
+#catysub {
+  display: flex;
+}
