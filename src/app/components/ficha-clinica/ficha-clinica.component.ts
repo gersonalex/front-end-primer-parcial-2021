@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/models/categoria';
-import { CategoriaService } from 'src/app/services/categoria.service';
+
 import { SubcategoriaService } from 'src/app/services/subcategoria.service';
 import { Subcategoria } from 'src/app/models/subcategoria';
+import { Persona } from 'src/app/models/persona';
+import { PersonaService } from 'src/app/services/persona.service';
+import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({
   selector: 'app-ficha-clinica',
@@ -19,15 +22,13 @@ export class FichaClinicaComponent implements OnInit {
   subcategoria: Subcategoria | undefined;
   fechaDesde: Date = new Date();
   fechaHasta: Date = new Date();
+  empleadoNombre: string = '';
 
   constructor(
     private categoriaService: CategoriaService,
-    private subCategoriaService: SubcategoriaService
+    private subCategoriaService: SubcategoriaService,
+    private personaService: PersonaService
   ) {}
-
-  changeCategoria($event: any) {
-    console.log($event.target.value);
-  }
 
   ngOnInit(): void {
     this.categoriaService.getCategorias().subscribe(
@@ -58,5 +59,22 @@ export class FichaClinicaComponent implements OnInit {
 
   fechaHastaChange($event: any) {
     this.fechaHasta = $event.target.value;
+    // console.log('El empleado es: ' + this.empleado);
+  }
+
+  obtenerEmpleados() {
+    // this.personaService.getEmpleados().subscribe(
+    //   (data) => console.log(data.lista),
+    //   (error) => console.log('no se pudieron conseguir los empleados')
+    // );
+    // this.personaService.getPersonaNombre(this.empleadoNombre).subscribe(
+    //   (data) => console.log(data.lista),
+    //   (error) => console.log('no se pudo conseguir la persona')
+    // );
+
+    this.personaService.getPersonaLike(this.empleadoNombre).subscribe(
+      (data) => console.log(data.lista),
+      (error) => console.log('no se pudo conseguir la persona')
+    );
   }
 }

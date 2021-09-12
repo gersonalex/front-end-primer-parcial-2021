@@ -24,14 +24,17 @@
 
 <mat-form-field appearance="fill">
   <mat-label>Empleado</mat-label>
-  <input matInput />
+  <input matInput [(ngModel)]="empleadoNombre" />
 </mat-form-field>
-<a href="">Buscar</a>
+<button type="button" class="btn btn-link" (click)="obtenerEmpleados()">
+  Buscar
+</button>
+
 <mat-form-field appearance="fill">
   <mat-label>Cliente</mat-label>
   <input matInput />
 </mat-form-field>
-<a href="">Buscar</a>
+<button type="button" class="btn btn-link">Buscar</button>
 
 <mat-form-field appearance="fill">
   <mat-label>Categoria</mat-label>
@@ -56,3 +59,7 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+
+<button type="button" class="btn btn-primary">Buscar</button>
+
+<button type="button" class="btn btn-primary">Limpiar</button>
