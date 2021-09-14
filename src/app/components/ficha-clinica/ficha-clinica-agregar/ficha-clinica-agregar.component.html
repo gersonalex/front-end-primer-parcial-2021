@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agregar Ficha</title>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Agregar Ficha Clinica</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="fecha" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="fechaDesde"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #fechaDesde></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Cliente</mat-label>
+        <input matInput [(ngModel)]="clienteNombre" name="cliente" />
+      </mat-form-field>
+      <button type="button" class="btn btn-link">Buscar</button>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Cliente</mat-label>
+        <input matInput [(ngModel)]="clienteNombre" name="cliente" />
+      </mat-form-field>
+      <button type="button" class="btn btn-link">Buscar</button>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Categoria</mat-label>
+        <mat-select [value]="categoria">
+          <mat-option *ngFor="let categoria of categorias" [value]="categoria">
+            {{ categoria.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Subcategoria</mat-label>
+        <mat-select [value]="subcategoria">
+          <mat-option
+            *ngFor="let subcategoria of subcategorias"
+            [value]="subcategoria"
+          >
+            {{ categoria.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Motivo</mat-label>
+        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Diagnóstico</mat-label>
+        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Observación</mat-label>
+        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+      </mat-form-field>
+
+      <button type="button" class="btn btn-outline-primary">Guardar</button>
+      <button type="button" class="btn btn-outline-primary">Cancelar</button>
+
+      <router-outlet></router-outlet>
+    </div>
+  </body>
+</html>

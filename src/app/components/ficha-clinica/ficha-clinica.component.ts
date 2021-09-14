@@ -32,10 +32,11 @@ export class FichaClinicaComponent implements OnInit {
 
   // @Input() categoria: Categoria = new Categoria();
   categoria: Categoria = new Categoria();
-  subcategoria: Subcategoria | undefined;
-  fechaDesde: Date = new Date();
-  fechaHasta: Date = new Date();
+  subcategoria: Subcategoria = new Subcategoria();
+  fechaDesde: any = new Date();
+  fechaHasta: any = new Date();
   empleadoNombre: string = '';
+  clienteNombre: string = '';
 
   constructor(
     private categoriaService: CategoriaService,
@@ -96,7 +97,21 @@ export class FichaClinicaComponent implements OnInit {
       (data) => console.log(data.lista),
       (error) => console.log('no se pudo conseguir la persona')
     );
+  }
 
-    console.log(this.fichasClinicas);
+  buscarFicha() {
+    let fichasRangoFechas = this.fichaClinicaService.getFichasRangoFechas(
+      this.fechaDesde.toISOString().split('T')[0].replaceAll('-', ''),
+      this.fechaHasta.toISOString().split('T')[0].replaceAll('-', '')
+    );
+
+    //TRAER LOS EMPLEADOS Y LOS CLIENTES A TRAVES DEL NOMBRE, UTILIZAR EL RECURSO PARA OBTENER PERSONAS PARA ACCEDER
+    // let fichasPaciente = this.fichaClinicaService.getFichasPaciente();
+
+    // let fichasFisio = this.fichaClinicaService.getFichasFisioterapeuta();
+
+    let fichasSubcategoria = this.fichaClinicaService.getFichasSubcategoria(
+      this.subcategoria.idTipoProducto
+    );
   }
 }

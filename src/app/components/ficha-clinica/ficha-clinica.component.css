@@ -15,3 +15,16 @@ table {
 #catysub {
   display: flex;
 }
+
+#btnAddFicha {
+  float: right;
+  margin-right: 10%;
+  margin-top: 3%;
+}
+
+#fechas,
+#personas,
+#catysub {
+  display: flex;
+  justify-content: space-evenly;
+}

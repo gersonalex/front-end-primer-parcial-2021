@@ -15,9 +15,10 @@ import { MatTableModule } from '@angular/material/table';
 
 import { CategoriaService } from './services/categoria.service';
 import { SubcategoriaService } from './services/subcategoria.service';
+import { FichaClinicaAgregarComponent } from './components/ficha-clinica/ficha-clinica-agregar/ficha-clinica-agregar.component';
 
 @NgModule({
-  declarations: [AppComponent, FichaClinicaComponent],
+  declarations: [AppComponent, FichaClinicaComponent, FichaClinicaAgregarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
