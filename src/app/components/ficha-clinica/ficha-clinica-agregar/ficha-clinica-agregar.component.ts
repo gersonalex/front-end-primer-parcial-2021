@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/models/categoria';
 import { Subcategoria } from 'src/app/models/subcategoria';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-ficha-clinica-agregar',
@@ -8,16 +9,38 @@ import { Subcategoria } from 'src/app/models/subcategoria';
   styleUrls: ['./ficha-clinica-agregar.component.css'],
 })
 export class FichaClinicaAgregarComponent implements OnInit {
+  nuevaFichaForm: FormGroup;
+
   fecha: any = null;
-  empleadoNombre: string = '';
-  clienteNombre: string = '';
   categoria: Categoria = new Categoria();
   subcategoria: Subcategoria = new Subcategoria();
 
   categorias: Categoria[] = [];
   subcategorias: Subcategoria[] = [];
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {
+    // this.initializeForm();
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
+    this.nuevaFichaForm = this.fb.group({
+      fecha: this.fecha,
+      empleadoNombre: '',
+      clienteNombre: '',
+      motivo: '',
+      diagnostico: '',
+      observacion: '',
+    });
+  }
+
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.log(this.nuevaFichaForm);
+  }
+
+  guardarFicha(): void {}
 }

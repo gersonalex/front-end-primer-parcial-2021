@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FichaClinicaComponent } from './components/ficha-clinica/ficha-clinica.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -18,12 +18,17 @@ import { SubcategoriaService } from './services/subcategoria.service';
 import { FichaClinicaAgregarComponent } from './components/ficha-clinica/ficha-clinica-agregar/ficha-clinica-agregar.component';
 
 @NgModule({
-  declarations: [AppComponent, FichaClinicaComponent, FichaClinicaAgregarComponent],
+  declarations: [
+    AppComponent,
+    FichaClinicaComponent,
+    FichaClinicaAgregarComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatInputModule,
