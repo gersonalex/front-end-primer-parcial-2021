@@ -1,5 +1,5 @@
-import { Persona } from './persona';
-import { Subcategoria } from './subcategoria';
+import { Persona } from '../persona';
+import { Subcategoria } from '../subcategoria';
 
 export interface FichaClinicaAdd {
   motivoConsulta: string;

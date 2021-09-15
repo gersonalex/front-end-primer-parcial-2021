@@ -13,7 +13,11 @@
       <form [formGroup]="nuevaFichaForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
           <mat-label>Fecha</mat-label>
-          <input matInput [matDatepicker]="fecha" />
+          <input
+            matInput
+            [matDatepicker]="fecha"
+            formControlName="fechaString"
+          />
           <mat-datepicker-toggle
             matSuffix
             [for]="fecha"
@@ -35,7 +39,11 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Categoria</mat-label>
-          <mat-select [value]="categoria">
+          <mat-select
+            [value]="categoria"
+            formControlName="categoria"
+            (selectionChange)="categoriaSeleccionar()"
+          >
             <mat-option
               *ngFor="let categoria of categorias"
               [value]="categoria"
@@ -47,12 +55,12 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Subcategoria</mat-label>
-          <mat-select [value]="subcategoria">
+          <mat-select [value]="subcategoria" formControlName="subcategoria">
             <mat-option
               *ngFor="let subcategoria of subcategorias"
               [value]="subcategoria"
             >
-              {{ categoria.descripcion }}
+              {{ subcategoria.descripcion }}
             </mat-option>
           </mat-select>
         </mat-form-field>

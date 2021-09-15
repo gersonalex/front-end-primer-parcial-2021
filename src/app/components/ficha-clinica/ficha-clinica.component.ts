@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Categoria } from 'src/app/models/categoria';
 
 import { SubcategoriaService } from 'src/app/services/subcategoria.service';
@@ -16,6 +17,8 @@ import { FichaClinica } from 'src/app/models/fichaClinica';
   providers: [Categoria, Subcategoria],
 })
 export class FichaClinicaComponent implements OnInit {
+  FichaFiltroForm!: FormGroup;
+
   categorias: Categoria[] = [];
   subcategorias: Subcategoria[] = [];
   fichasClinicas: FichaClinica[] = [];
@@ -30,15 +33,8 @@ export class FichaClinicaComponent implements OnInit {
     'acciones',
   ];
 
-  // @Input() categoria: Categoria = new Categoria();
-  categoria: Categoria = new Categoria();
-  subcategoria: Subcategoria = new Subcategoria();
-  fechaDesde: any = new Date();
-  fechaHasta: any = new Date();
-  empleadoNombre: string = '';
-  clienteNombre: string = '';
-
   constructor(
+    private fb: FormBuilder,
     private categoriaService: CategoriaService,
     private subCategoriaService: SubcategoriaService,
     private personaService: PersonaService,
@@ -46,42 +42,53 @@ export class FichaClinicaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initializeForm();
+
     this.categoriaService.getCategorias().subscribe(
       (data) => (this.categorias = data.lista),
       (error) => console.log('no se pudieron conseguir las categorias')
     );
 
     this.fichaClinicaService.getFichasClinicas().subscribe(
-      // (data) => (this.categorias = data.lista),
       (data) => (this.fichasClinicas = data.lista),
       (error) => console.log('no se pudieron conseguir las fichas clinicas')
     );
   }
 
-  categoriaSeleccionar(target: Categoria) {
-    this.categoria = target;
-    console.log(this.categoria);
+  initializeForm(): void {
+    this.FichaFiltroForm = this.fb.group({
+      fechaDesde: '',
+      fechaHasta: '',
+      empleadoNombre: '',
+      clienteNombre: '',
+      categoria: '',
+      subcategoria: '',
+    });
+  }
+
+  categoriaSeleccionar() {
     this.getSubcategorias();
   }
 
   getSubcategorias() {
-    this.subCategoriaService.getSubCategorias(this.categoria).subscribe(
-      (data) => {
-        this.subcategorias = data.lista;
-        console.log(this.subcategorias);
-      },
-      (error) => console.log('no se pudieron conseguir los paises')
-    );
+    this.subCategoriaService
+      .getSubCategorias(this.FichaFiltroForm.value.categoria)
+      .subscribe(
+        (data) => {
+          this.subcategorias = data.lista;
+        },
+        (error) => console.log('no se pudieron conseguir los paises')
+      );
   }
 
-  fechaDesdeChange($event: any) {
-    this.fechaDesde = $event.target.value;
-  }
+  // fechaDesdeChange($event: any) {
+  //   this.fechaDesde = $event.target.value;
+  // }
 
-  fechaHastaChange($event: any) {
-    this.fechaHasta = $event.target.value;
-    // console.log('El empleado es: ' + this.empleado);
-  }
+  // fechaHastaChange($event: any) {
+  //   this.fechaHasta = $event.target.value;
+  //   // console.log('El empleado es: ' + this.empleado);
+  // }
 
   obtenerEmpleados() {
     // this.personaService.getEmpleados().subscribe(
@@ -92,26 +99,26 @@ export class FichaClinicaComponent implements OnInit {
     //   (data) => console.log(data.lista),
     //   (error) => console.log('no se pudo conseguir la persona')
     // );
-
-    this.personaService.getPersonaLike(this.empleadoNombre).subscribe(
-      (data) => console.log(data.lista),
-      (error) => console.log('no se pudo conseguir la persona')
-    );
+    // this.personaService.getPersonaLike(this.empleadoNombre).subscribe(
+    //   (data) => console.log(data.lista),
+    //   (error) => console.log('no se pudo conseguir la persona')
+    // );
   }
 
   buscarFicha() {
-    let fichasRangoFechas = this.fichaClinicaService.getFichasRangoFechas(
-      this.fechaDesde.toISOString().split('T')[0].replaceAll('-', ''),
-      this.fechaHasta.toISOString().split('T')[0].replaceAll('-', '')
-    );
-
+    // let fichasRangoFechas = this.fichaClinicaService.getFichasRangoFechas(
+    //   this.fechaDesde.toISOString().split('T')[0].replaceAll('-', ''),
+    //   this.fechaHasta.toISOString().split('T')[0].replaceAll('-', '')
+    // );
     //TRAER LOS EMPLEADOS Y LOS CLIENTES A TRAVES DEL NOMBRE, UTILIZAR EL RECURSO PARA OBTENER PERSONAS PARA ACCEDER
     // let fichasPaciente = this.fichaClinicaService.getFichasPaciente();
-
     // let fichasFisio = this.fichaClinicaService.getFichasFisioterapeuta();
+    // let fichasSubcategoria = this.fichaClinicaService.getFichasSubcategoria(
+    //   this.subcategoria.idTipoProducto
+    // );
+  }
 
-    let fichasSubcategoria = this.fichaClinicaService.getFichasSubcategoria(
-      this.subcategoria.idTipoProducto
-    );
+  filtrarFichas(): void {
+    console.log(this.FichaFiltroForm);
   }
 }

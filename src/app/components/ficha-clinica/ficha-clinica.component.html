@@ -8,14 +8,14 @@
   </head>
   <body>
     <div class="container">
-      <form #form="ngForm">
+      <form [formGroup]="FichaFiltroForm" (ngSubmit)="filtrarFichas()">
         <div id="fechas">
           <mat-form-field appearance="fill">
             <mat-label>Fecha desde</mat-label>
             <input
               matInput
               [matDatepicker]="fechaDesde"
-              (dateChange)="fechaDesdeChange($event)"
+              formControlName="fechaDesde"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -29,7 +29,7 @@
             <input
               matInput
               [matDatepicker]="fechaHasta"
-              (dateChange)="fechaHastaChange($event)"
+              formControlName="fechaHasta"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -43,7 +43,11 @@
           <div>
             <mat-form-field appearance="fill">
               <mat-label>Empleado</mat-label>
-              <input matInput [(ngModel)]="empleadoNombre" name="empleado" />
+              <input
+                matInput
+                formControlName="empleadoNombre"
+                name="empleado"
+              />
             </mat-form-field>
             <button
               type="button"
@@ -57,7 +61,7 @@
           <div>
             <mat-form-field appearance="fill">
               <mat-label>Cliente</mat-label>
-              <input matInput [(ngModel)]="clienteNombre" name="cliente" />
+              <input matInput formControlName="clienteNombre" name="cliente" />
             </mat-form-field>
             <button type="button" class="btn btn-link">Buscar</button>
           </div>
@@ -68,8 +72,8 @@
             <mat-form-field appearance="fill">
               <mat-label>Categoria</mat-label>
               <mat-select
-                [value]="categoria"
-                (selectionChange)="categoriaSeleccionar($event.value)"
+                formControlName="categoria"
+                (selectionChange)="categoriaSeleccionar()"
               >
                 <mat-option
                   *ngFor="let categoria of categorias"
@@ -84,7 +88,7 @@
           <div id="subcategoria">
             <mat-form-field appearance="fill">
               <mat-label>Subcategoria</mat-label>
-              <mat-select [(ngModel)]="subcategoria" name="subcategoria">
+              <mat-select name="subcategoria" formControlName="subcategoria">
                 <mat-option
                   *ngFor="let subcategoria of subcategorias"
                   [value]="subcategoria"
@@ -97,11 +101,13 @@
         </div>
 
         <div id="buscar">
-          <button type="button" class="btn btn-primary" (click)="buscarFicha()">
-            Buscar
-          </button>
+          <button type="submit" class="btn btn-primary">Buscar</button>
 
-          <button type="button" class="btn btn-primary" (click)="form.reset()">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="FichaFiltroForm.reset()"
+          >
             Limpiar
           </button>
         </div>
@@ -161,7 +167,7 @@
       </table>
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-outline-primary"
         id="btnAddFicha"
         routerLink="/ficha-clinica-agregar"
       >

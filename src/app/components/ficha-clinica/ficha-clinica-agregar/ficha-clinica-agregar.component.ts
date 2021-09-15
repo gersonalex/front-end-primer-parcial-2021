@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/models/categoria';
 import { Subcategoria } from 'src/app/models/subcategoria';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { CategoriaService } from 'src/app/services/categoria.service';
+import { SubcategoriaService } from 'src/app/services/subcategoria.service';
 
 @Component({
   selector: 'app-ficha-clinica-agregar',
@@ -9,7 +11,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./ficha-clinica-agregar.component.css'],
 })
 export class FichaClinicaAgregarComponent implements OnInit {
-  nuevaFichaForm: FormGroup;
+  nuevaFichaForm!: FormGroup;
 
   fecha: any = null;
   categoria: Categoria = new Categoria();
@@ -18,23 +20,47 @@ export class FichaClinicaAgregarComponent implements OnInit {
   categorias: Categoria[] = [];
   subcategorias: Subcategoria[] = [];
 
-  constructor(private fb: FormBuilder) {
-    // this.initializeForm();
-  }
+  constructor(
+    private fb: FormBuilder,
+    private categoriaService: CategoriaService,
+    private subCategoriaService: SubcategoriaService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
+
+    this.categoriaService.getCategorias().subscribe(
+      (data) => (this.categorias = data.lista),
+      (error) => console.log('no se pudieron conseguir las categorias')
+    );
   }
 
   initializeForm(): void {
     this.nuevaFichaForm = this.fb.group({
-      fecha: this.fecha,
+      fechaString: '',
       empleadoNombre: '',
       clienteNombre: '',
+      categoria: '',
+      subcategoria: '',
       motivo: '',
       diagnostico: '',
       observacion: '',
     });
+  }
+
+  categoriaSeleccionar() {
+    this.getSubcategorias();
+  }
+
+  getSubcategorias() {
+    this.subCategoriaService
+      .getSubCategorias(this.nuevaFichaForm.value.categoria)
+      .subscribe(
+        (data) => {
+          this.subcategorias = data.lista;
+        },
+        (error) => console.log('no se pudieron conseguir las subcategorias')
+      );
   }
 
   onSubmit() {
