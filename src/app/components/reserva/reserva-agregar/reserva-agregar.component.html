@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agregar Reserva</title>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Agregar Reserva</h3>
+
+      <form [formGroup]="nuevaReservaForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha</mat-label>
+          <input
+            matInput
+            [matDatepicker]="fecha"
+            formControlName="fechaString"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="fecha"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #fecha></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Empleado</mat-label>
+          <input matInput formControlName="empleadoNombre" name="cliente" />
+        </mat-form-field>
+        <button type="button" class="btn btn-link">Buscar</button>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Cliente</mat-label>
+          <input matInput formControlName="clienteNombre" name="cliente" />
+        </mat-form-field>
+        <button type="button" class="btn btn-link">Buscar</button>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Motivo</mat-label>
+          <textarea
+            matInput
+            placeholder="Ex. It makes me feel..."
+            formControlName="motivo"
+          ></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Diagnóstico</mat-label>
+          <textarea
+            matInput
+            placeholder="Ex. It makes me feel..."
+            formControlName="diagnostico"
+          ></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Observación</mat-label>
+          <textarea
+            matInput
+            placeholder="Ex. It makes me feel..."
+            formControlName="observacion"
+          ></textarea>
+        </mat-form-field>
+        <button
+          type="submit"
+          class="btn btn-outline-primary"
+          (click)="guardarReserva()"
+        >
+          Guardar
+        </button>
+        <button type="button" class="btn btn-outline-primary">Cancelar</button>
+      </form>
+
+      <router-outlet></router-outlet>
+    </div>
+  </body>
+</html>

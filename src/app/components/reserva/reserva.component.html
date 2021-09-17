@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+
+      <div id="personas">
+        <div>
+          <label class="mdc-text-field mdc-text-field--filled">
+            <mat-label>Empleado</mat-label>
+            <span class="mdc-text-field__ripple"></span>
+            <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id" [(ngModel)]="nombreEmpleado">
+            <span class="mdc-line-ripple"></span>
+          </label>
+          <button
+            type="button"
+            class="btn btn-link"
+            (click)="obtenerEmpleados()"
+          >
+            Buscar
+          </button>
+        </div>
+
+        <div>
+          <label class="mdc-text-field mdc-text-field--filled">
+            <mat-label>Cliente</mat-label>
+            <span class="mdc-text-field__ripple"></span>
+            <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id" [(ngModel)]="nombreCliente">
+            <span class="mdc-line-ripple"></span>
+          </label>
+          <button
+          type="button"
+          class="btn btn-link"
+          (click)="obtenerClientes()"
+        >Buscar</button>
+        </div>
+      </div>
+
+      <form [formGroup]="ReservaFiltroForm" (ngSubmit)="filtrarReservas()">
+        <div id="fechas">
+          <mat-form-field appearance="fill">
+            <mat-label>Fecha desde</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fechaDesde"
+              formControlName="fechaDesde"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fechaDesde"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fechaDesde></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Fecha hasta</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fechaHasta"
+              formControlName="fechaHasta"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fechaHasta"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fechaHasta></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div id="catysub">
+          <div id="empleado">
+            <mat-form-field appearance="fill">
+              <mat-label>Empleado</mat-label>
+              <mat-select
+                formControlName="empleado"
+              >
+                <mat-option
+                  *ngFor="let empleado of empleados"
+                  [value]="empleado"
+                >
+                  {{ empleado.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div id="cliente">
+            <mat-form-field appearance="fill">
+              <mat-label>Cliente</mat-label>
+              <mat-select name="cliente" formControlName="cliente">
+                <mat-option
+                  *ngFor="let cliente of clientes"
+                  [value]="cliente"
+                >
+                  {{ cliente.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div id="buscar">
+          <button type="submit" class="btn btn-primary">Buscar</button>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="initializeForm()"
+          >
+            Limpiar
+          </button>
+        </div>
+      </form>
+
+      <table mat-table [dataSource]="reservas" class="mat-elevation-z8">
+        <!-- Fecha Column -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let element">{{ element.fechaHora }}</td>
+        </ng-container>
+
+        <!-- Profesional Column -->
+        <ng-container matColumnDef="profesional">
+          <th mat-header-cell *matHeaderCellDef>Profesional</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.idEmpleado.nombre }} {{ element.idEmpleado.apellido }}
+          </td>
+        </ng-container>
+
+        <!-- Cliente Column -->
+        <ng-container matColumnDef="cliente">
+          <th mat-header-cell *matHeaderCellDef>Cliente</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.idCliente.nombre }} {{ element.idCliente.apellido }}
+          </td>
+        </ng-container>
+
+        <!-- Observacion Column -->
+          <ng-container matColumnDef="observacion">
+          <th mat-header-cell *matHeaderCellDef>Observacion</th>
+             <td mat-cell *matCellDef="let element">{{ element.observacion }}</td>
+          </ng-container>
+
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let element">
+            <button type="button" class="btn btn-outline-secondary">
+              Modificar Observacion
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        id="btnAddReserva"
+        routerLink="/reserva-agregar"
+      >
+        Agregar Reserva
+      </button>
+    </div>
+  </body>
+</html>

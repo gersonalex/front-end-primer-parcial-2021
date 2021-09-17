@@ -16,12 +16,16 @@ import { MatTableModule } from '@angular/material/table';
 import { CategoriaService } from './services/categoria.service';
 import { SubcategoriaService } from './services/subcategoria.service';
 import { FichaClinicaAgregarComponent } from './components/ficha-clinica/ficha-clinica-agregar/ficha-clinica-agregar.component';
+import { ReservaComponent } from './components/reserva/reserva.component';
+import { ReservaAgregarComponent } from './components/reserva/reserva-agregar/reserva-agregar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FichaClinicaComponent,
     FichaClinicaAgregarComponent,
+    ReservaComponent,
+    ReservaAgregarComponent,
   ],
   imports: [
     BrowserModule,

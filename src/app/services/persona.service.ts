@@ -15,7 +15,7 @@ export class PersonaService {
 
   getEmpleados(): Observable<listadatos<Persona>> {
     let _endpoint =
-      this.endpoint + 'ejemplo=' + encodeURI('{"soloUsuariosDelSistema":true}');
+      this.endpoint + '?ejemplo=' + encodeURI('{"soloUsuariosDelSistema":true}');
 
     return this.http.get<listadatos<Persona>>(_endpoint);
   }
@@ -52,6 +52,24 @@ export class PersonaService {
     //   }
     //   return null;
     // });
+
+    return this.http.get<listadatos<Persona>>(_endpointNombre);
+  }
+
+  getClienteLike(likeNameLastname: string): Observable<listadatos<Persona>> {
+    let _endpointNombre =
+      this.endpoint +
+      '?like=S&ejemplo=' +
+      encodeURI('{"nombre":"' + likeNameLastname + '"'+',"soloUsuariosDelSistema":false}');
+
+    return this.http.get<listadatos<Persona>>(_endpointNombre);
+  }
+
+  getEmpleadoLike(likeNameLastname: string): Observable<listadatos<Persona>> {
+    let _endpointNombre =
+      this.endpoint +
+      '?like=S&ejemplo=' +
+      encodeURI('{"nombre":"' + likeNameLastname + '"'+',"soloUsuariosDelSistema":true}');
 
     return this.http.get<listadatos<Persona>>(_endpointNombre);
   }
