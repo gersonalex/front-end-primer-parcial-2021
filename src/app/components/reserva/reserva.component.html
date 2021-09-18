@@ -11,33 +11,19 @@
 
       <div id="personas">
         <div>
-          <label class="mdc-text-field mdc-text-field--filled">
-            <mat-label>Empleado</mat-label>
-            <span class="mdc-text-field__ripple"></span>
-            <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id" [(ngModel)]="nombreEmpleado">
-            <span class="mdc-line-ripple"></span>
-          </label>
-          <button
-            type="button"
-            class="btn btn-link"
-            (click)="obtenerEmpleados()"
-          >
-            Buscar
-          </button>
+          <button mat-raised-button (click)="openDialogEmpleado()">Buscar Empleado</button>
+
+          <li *ngIf="isNotEmptyObject(empleado)">
+            Empleado: <i>{{empleado.nombre}}</i>
+          </li>
         </div>
 
         <div>
-          <label class="mdc-text-field mdc-text-field--filled">
-            <mat-label>Cliente</mat-label>
-            <span class="mdc-text-field__ripple"></span>
-            <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id" [(ngModel)]="nombreCliente">
-            <span class="mdc-line-ripple"></span>
-          </label>
-          <button
-          type="button"
-          class="btn btn-link"
-          (click)="obtenerClientes()"
-        >Buscar</button>
+          <button mat-raised-button (click)="openDialogCliente()">Buscar Cliente</button>
+
+          <li *ngIf="isNotEmptyObject(cliente)">
+            Cliente: <i>{{cliente.nombre}}</i>
+          </li>
         </div>
       </div>
 
@@ -70,38 +56,6 @@
             ></mat-datepicker-toggle>
             <mat-datepicker #fechaHasta></mat-datepicker>
           </mat-form-field>
-        </div>
-
-        <div id="catysub">
-          <div id="empleado">
-            <mat-form-field appearance="fill">
-              <mat-label>Empleado</mat-label>
-              <mat-select
-                formControlName="empleado"
-              >
-                <mat-option
-                  *ngFor="let empleado of empleados"
-                  [value]="empleado"
-                >
-                  {{ empleado.nombre }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div id="cliente">
-            <mat-form-field appearance="fill">
-              <mat-label>Cliente</mat-label>
-              <mat-select name="cliente" formControlName="cliente">
-                <mat-option
-                  *ngFor="let cliente of clientes"
-                  [value]="cliente"
-                >
-                  {{ cliente.nombre }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
         </div>
 
 
@@ -169,5 +123,10 @@
         Agregar Reserva
       </button>
     </div>
+
+
+
+
+
   </body>
 </html>

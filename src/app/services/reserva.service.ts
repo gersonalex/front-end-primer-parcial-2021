@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { listadatos } from '../models/datos';
 import { FichaClinica } from '../models/fichaClinica';
+import { Persona } from '../models/persona';
 import { Reserva } from '../models/reserva';
+import { PersonaService } from './persona.service';
 
 @Injectable({
   providedIn: 'root',
@@ -35,23 +37,23 @@ export class ReservaService {
   }
 
   getReservasFiltro(
-    empleado: string,
-    cliente: string,
+    empleado: Persona,
+    cliente: Persona,
     fechaDesde: string,
     fechaHasta: string
   ): Observable<listadatos<Reserva>> {
     this.filtro = '?ejemplo={';
-    if(cliente!=''){
-      this.filtro=this.filtro+'?"idCliente":{"idPersona":1}';
+    if(cliente.idPersona!=undefined){
+      this.filtro=this.filtro+'"idCliente":{"idPersona":' + cliente.idPersona + '}';
     }
-    if(empleado!=''){
+    if(empleado.idPersona!=undefined){
       //si el filtro no esta vacio agrega la coma
       if(this.filtro != '?ejemplo={'){
         this.filtro=this.filtro+',';
       }else{
         //this.filtro=this.filtro+'?';
       }
-      this.filtro=this.filtro+'"idEmpleado":{"idPersona":1}';
+      this.filtro=this.filtro+'"idEmpleado":{"idPersona":' + empleado.idPersona + '}';
     }
     if(fechaDesde!=''){
       //si el filtro no esta vacio agrega la coma

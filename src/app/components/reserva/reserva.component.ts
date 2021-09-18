@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Reserva } from 'src/app/models/reserva';
 import { PersonaService } from 'src/app/services/persona.service';
 import { ReservaService } from 'src/app/services/reserva.service';
 import {formatDate} from '@angular/common';
 import { Persona } from 'src/app/models/persona';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DialogBuscarClienteComponent } from './dialog-buscar-cliente/dialog-buscar-cliente.component';
+import { DialogBuscarEmpleadoComponent } from './dialog-buscar-empleado/dialog-buscar-empleado.component';
 
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-reserva',
@@ -14,14 +22,19 @@ import { Persona } from 'src/app/models/persona';
 })
 export class ReservaComponent implements OnInit {
 
+  animal: string = '';
+  name: string = '';
+
   ReservaFiltroForm!: FormGroup;
   reservas: Reserva[] = [];
 
   nombreCliente: string = '';
   clientes: Persona[] = [];
+  cliente: Persona = new Persona;
 
   nombreEmpleado: string = '';
   empleados: Persona[] = [];
+  empleado: Persona = new Persona;
 
   //Para la tabla
   displayedColumns: string[] = [
@@ -35,11 +48,11 @@ export class ReservaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private personaService: PersonaService,
-    private reservaService: ReservaService
+    private reservaService: ReservaService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.obtenerClientes();
     this.obtenerEmpleados();
     this.initializeForm();
 
@@ -53,10 +66,11 @@ export class ReservaComponent implements OnInit {
   initializeForm(): void {
     this.ReservaFiltroForm = this.fb.group({
       fechaDesde: '',
-      fechaHasta: '',
-      empleado: '',
-      cliente: ''
+      fechaHasta: ''
     });
+
+    this.cliente = new Persona;
+    this.empleado = new Persona;
   }
 
   obtenerEmpleados() {
@@ -76,7 +90,7 @@ export class ReservaComponent implements OnInit {
   filtrarReservas(): void {
     console.log(this.ReservaFiltroForm.value);
 
-    this.reservaService.getReservasFiltro(this.ReservaFiltroForm.value['empleado'],this.ReservaFiltroForm.value['cliente'],
+    this.reservaService.getReservasFiltro(this.empleado,this.cliente,
       this.ReservaFiltroForm.value['fechaDesde'],
       this.ReservaFiltroForm.value['fechaHasta']).subscribe(
       (data) => (this.reservas = data.lista),
@@ -84,5 +98,34 @@ export class ReservaComponent implements OnInit {
     );
   }
 
+
+  openDialogCliente(): void {
+    const dialogRef = this.dialog.open(DialogBuscarClienteComponent, {
+      data: {nombreCliente: this.nombreCliente, cliente: this.cliente, clientes: this.clientes}
+    });
+
+    dialogRef.afterClosed().subscribe((result: Persona) => {
+      console.log('The dialog was closed');
+      this.cliente = result;
+    });
+  }
+
+  openDialogEmpleado(): void {
+    const dialogRef = this.dialog.open(DialogBuscarEmpleadoComponent, {
+      data: {nombreEmpleado: this.nombreEmpleado, empleado: this.empleado, empleados: this.empleados}
+    });
+
+    dialogRef.afterClosed().subscribe((result: Persona) => {
+      console.log('The dialog was closed');
+      this.empleado = result;
+    });
+  }
+
+  isNotEmptyObject(obj: {}) {
+    return (obj && (Object.keys(obj).length !== 0));
+  }
+
 }
+
+
 

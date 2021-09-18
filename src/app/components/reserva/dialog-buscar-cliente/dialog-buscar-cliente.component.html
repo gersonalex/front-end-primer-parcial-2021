@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Filtro Cliente</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput [(ngModel)]="datos.nombreCliente">
+  </mat-form-field>
+  <button mat-button (click)="obtenerClientes()">Buscar</button>
+  <mat-form-field appearance="fill">
+    <mat-label>Cliente</mat-label>
+    <mat-select name="cliente" [(ngModel)]="datos.cliente">
+      <mat-option
+        *ngFor="let cliente of datos.clientes"
+        [value]="cliente"
+      >
+        {{ cliente.nombre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="datos.cliente" cdkFocusInitial>Ok</button>
+</div>

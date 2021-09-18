@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FichaClinicaComponent } from './components/ficha-clinica/ficha-clinica.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
@@ -19,6 +18,14 @@ import { FichaClinicaAgregarComponent } from './components/ficha-clinica/ficha-c
 import { ReservaComponent } from './components/reserva/reserva.component';
 import { ReservaAgregarComponent } from './components/reserva/reserva-agregar/reserva-agregar.component';
 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCommonModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import { DialogBuscarClienteComponent } from './components/reserva/dialog-buscar-cliente/dialog-buscar-cliente.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogBuscarEmpleadoComponent } from './components/reserva/dialog-buscar-empleado/dialog-buscar-empleado.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +33,8 @@ import { ReservaAgregarComponent } from './components/reserva/reserva-agregar/re
     FichaClinicaAgregarComponent,
     ReservaComponent,
     ReservaAgregarComponent,
+    DialogBuscarClienteComponent,
+    DialogBuscarEmpleadoComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,10 +44,14 @@ import { ReservaAgregarComponent } from './components/reserva/reserva-agregar/re
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatInputModule,
     MatNativeDateModule,
     MatSelectModule,
     MatTableModule,
+    MatButtonModule,
+    MatCommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [CategoriaService, SubcategoriaService],
   bootstrap: [AppComponent],
